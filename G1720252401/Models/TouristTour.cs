@@ -8,7 +8,7 @@ namespace G1720252401.Models
 {
     internal class TouristTour
     {
-        public string TouristID { get; set; }
+        public int TouristID { get; set; }
         public int TourID { get; set; }
         public DateTime DepartureDate { get; set; }
         public DateTime ReturnDate { get; set; }

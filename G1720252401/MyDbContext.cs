@@ -8,23 +8,37 @@ namespace G1720252401
     internal class MyDbContext : DbContext
     {
         public DbSet<Country> Countries { get; set; }
-        //public DbSet<City> Cities { get; set; }
-        //public DbSet<Hotel> Hotels { get; set; }
-        //public DbSet<Tour> Tours { get; set; }
-        //public DbSet<TourCity> TourCities { get; set; }
-        //public DbSet<Tourist> Tourists { get; set; }
-        //public DbSet<TouristTour> TouristTours { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Tour> Tours { get; set; }
+        public DbSet<TourCity> TourCities { get; set; }
+        public DbSet<Tourist> Tourists { get; set; }
+        public DbSet<TouristTour> TouristTours { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Database=G17_TouristAgancy.db"); /*Integrated Security=True; trustservercertificate = true; pooling = true;*/
+            optionsBuilder.UseSqlServer("Server=.; Database=G17_TouristAgancy.db; Integrated Security=True; trustservercertificate = true; pooling = true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Country>();
-            //modelBuilder.Entity<TourCity>().HasKey(tc => new { tc.TourID, tc.CityID });
-            //modelBuilder.Entity<TouristTour>().HasKey(tt => new { tt.TourID, tt.TouristID });
+            modelBuilder.Entity<Country>().HasKey(c => c.CountryID);
+            modelBuilder.Entity<City>()
+                .HasOne(c => c.Country)
+                .WithMany(c => c.Cities)
+                .HasForeignKey(c => c.CountryID);
+            modelBuilder.Entity<Hotel>()
+                .HasCheckConstraint("CK_Hotel_Stars", "Stars between 1 and 5");
+            modelBuilder.Entity<Tour>()
+                .HasCheckConstraint("CK_Tour_Code", "LEN(Code) = 5");
+            modelBuilder.Entity<TourCity>()
+                .HasKey(tc => new { tc.TourID, tc.CityID });
+            modelBuilder.Entity<Tourist>()
+                .HasCheckConstraint("CK_Tourist_TouristID", "LEN(TouristID) = 11")
+                .HasIndex(t => t.PassportNumber)
+                .IsUnique();
+            modelBuilder.Entity<TouristTour>()
+                .HasKey(tt => new { tt.TourID, tt.TouristID });
         }
 
 
