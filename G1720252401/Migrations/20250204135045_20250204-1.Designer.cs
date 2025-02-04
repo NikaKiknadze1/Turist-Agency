@@ -4,6 +4,7 @@ using G1720252401;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G1720252401.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250204135045_20250204-1")]
+    partial class _202502041
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,68 +45,6 @@ namespace G1720252401.Migrations
                     b.HasIndex("CountryID");
 
                     b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            CityID = 1,
-                            CountryID = 1,
-                            Name = "Tbilisi"
-                        },
-                        new
-                        {
-                            CityID = 2,
-                            CountryID = 1,
-                            Name = "Batumi"
-                        },
-                        new
-                        {
-                            CityID = 3,
-                            CountryID = 2,
-                            Name = "Rome"
-                        },
-                        new
-                        {
-                            CityID = 4,
-                            CountryID = 2,
-                            Name = "Florence"
-                        },
-                        new
-                        {
-                            CityID = 5,
-                            CountryID = 3,
-                            Name = "Paris"
-                        },
-                        new
-                        {
-                            CityID = 6,
-                            CountryID = 3,
-                            Name = "Nice"
-                        },
-                        new
-                        {
-                            CityID = 7,
-                            CountryID = 4,
-                            Name = "Barcelona"
-                        },
-                        new
-                        {
-                            CityID = 8,
-                            CountryID = 4,
-                            Name = "Madrid"
-                        },
-                        new
-                        {
-                            CityID = 9,
-                            CountryID = 5,
-                            Name = "New York"
-                        },
-                        new
-                        {
-                            CityID = 10,
-                            CountryID = 5,
-                            Name = "Los Angeles"
-                        });
                 });
 
             modelBuilder.Entity("G1720252401.Models.Country", b =>
@@ -186,38 +127,6 @@ namespace G1720252401.Migrations
                         {
                             t.HasCheckConstraint("CK_Hotel_Stars", "Stars between 1 and 5");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            HotelID = 1,
-                            AdditionalServices = "Laundry,WiFi,Satellite TV",
-                            CityID = 1,
-                            MealIncluded = true,
-                            Name = "Hotel Tbilisi",
-                            PricePerNight = 200.00m,
-                            Stars = 5
-                        },
-                        new
-                        {
-                            HotelID = 2,
-                            AdditionalServices = "WiFi,Swimming Pool",
-                            CityID = 2,
-                            MealIncluded = false,
-                            Name = "Hotel Batumi",
-                            PricePerNight = 150.00m,
-                            Stars = 4
-                        },
-                        new
-                        {
-                            HotelID = 3,
-                            AdditionalServices = "Gym,WiFi,Restaurant",
-                            CityID = 3,
-                            MealIncluded = true,
-                            Name = "Hotel Rome",
-                            PricePerNight = 250.00m,
-                            Stars = 5
-                        });
                 });
 
             modelBuilder.Entity("G1720252401.Models.Tour", b =>
@@ -249,24 +158,6 @@ namespace G1720252401.Migrations
                         {
                             t.HasCheckConstraint("CK_Tour_Code", "LEN(Code) = 5");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            TourID = 1,
-                            Code = "T0011",
-                            Duration = 7,
-                            Name = "Rome and Florence Tour",
-                            TotalPrice = 1500.00m
-                        },
-                        new
-                        {
-                            TourID = 2,
-                            Code = "T0022",
-                            Duration = 6,
-                            Name = "Paris and Nice Tour",
-                            TotalPrice = 1400.00m
-                        });
                 });
 
             modelBuilder.Entity("G1720252401.Models.TourCity", b =>
@@ -285,20 +176,6 @@ namespace G1720252401.Migrations
                     b.HasIndex("CityID");
 
                     b.ToTable("TourCities");
-
-                    b.HasData(
-                        new
-                        {
-                            TourID = 1,
-                            CityID = 3,
-                            Days = 4
-                        },
-                        new
-                        {
-                            TourID = 1,
-                            CityID = 4,
-                            Days = 3
-                        });
                 });
 
             modelBuilder.Entity("G1720252401.Models.Tourist", b =>
@@ -336,27 +213,7 @@ namespace G1720252401.Migrations
 
                     b.ToTable("Tourists", t =>
                         {
-                            t.HasCheckConstraint("CK_Tourist_PassportNumber", "LEN(PassportNumber) = 11");
-                        });
-
-                    b.HasData(
-                        new
-                        {
-                            TouristID = 1,
-                            BirthDate = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ContactPhone = "+1234567890",
-                            FirstName = "John",
-                            LastName = "Doe",
-                            PassportNumber = "12345678901"
-                        },
-                        new
-                        {
-                            TouristID = 2,
-                            BirthDate = new DateTime(1990, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ContactPhone = "+1234567891",
-                            FirstName = "Jane",
-                            LastName = "Smith",
-                            PassportNumber = "12345678902"
+                            t.HasCheckConstraint("CK_Tourist_TouristID", "LEN(TouristID) = 11");
                         });
                 });
 
@@ -379,22 +236,6 @@ namespace G1720252401.Migrations
                     b.HasIndex("TouristID");
 
                     b.ToTable("TouristTours");
-
-                    b.HasData(
-                        new
-                        {
-                            TourID = 1,
-                            TouristID = 1,
-                            DepartureDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReturnDate = new DateTime(2023, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TourID = 2,
-                            TouristID = 2,
-                            DepartureDate = new DateTime(2023, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReturnDate = new DateTime(2023, 2, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("G1720252401.Models.City", b =>
@@ -441,7 +282,7 @@ namespace G1720252401.Migrations
             modelBuilder.Entity("G1720252401.Models.TouristTour", b =>
                 {
                     b.HasOne("G1720252401.Models.Tour", "Tour")
-                        .WithMany("TouristTours")
+                        .WithMany()
                         .HasForeignKey("TourID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -470,8 +311,6 @@ namespace G1720252401.Migrations
             modelBuilder.Entity("G1720252401.Models.Tour", b =>
                 {
                     b.Navigation("TourCities");
-
-                    b.Navigation("TouristTours");
                 });
 
             modelBuilder.Entity("G1720252401.Models.Tourist", b =>

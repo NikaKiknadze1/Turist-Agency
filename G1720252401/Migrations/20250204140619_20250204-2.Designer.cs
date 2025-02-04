@@ -4,6 +4,7 @@ using G1720252401;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G1720252401.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250204140619_20250204-2")]
+    partial class _202502042
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -441,7 +444,7 @@ namespace G1720252401.Migrations
             modelBuilder.Entity("G1720252401.Models.TouristTour", b =>
                 {
                     b.HasOne("G1720252401.Models.Tour", "Tour")
-                        .WithMany("TouristTours")
+                        .WithMany()
                         .HasForeignKey("TourID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -470,8 +473,6 @@ namespace G1720252401.Migrations
             modelBuilder.Entity("G1720252401.Models.Tour", b =>
                 {
                     b.Navigation("TourCities");
-
-                    b.Navigation("TouristTours");
                 });
 
             modelBuilder.Entity("G1720252401.Models.Tourist", b =>

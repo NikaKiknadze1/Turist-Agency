@@ -17,5 +17,6 @@ namespace G1720252401.Models
         public int Duration { get; set; }
         public decimal TotalPrice { get; set; }
         public ICollection<TourCity> TourCities { get; set; }
+        public ICollection<TouristTour> TouristTours { get; set; }
     }
 }
